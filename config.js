@@ -37,8 +37,8 @@ module.exports = function (seed) {
     maxRadius: random(5, 100),
     lineStyle: random(1) > 0.5 ? 'round' : 'square',
     interval: random(0.001, 0.01),
-    count: 5000, // TODO: play with this number
-    steps: 8000, // TODO: play with this number
+    count: 2000, // TODO: play with this number
+    steps: 2000, // TODO: play with this number
     endlessBrowser: false, // Whether to endlessly step in browser
 
     // background image that drives the algorithm
