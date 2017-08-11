@@ -46,8 +46,8 @@
     "test": "node test.js",
     "ffmpeg": "ffmpeg -framerate 30 -i frames/test_%04d.png -y -s:v 1280x720 -c:v libx264 -profile:v high -crf 20 -pix_fmt yuv420p output.mp4",
     "deploy": "surge -p .",
-    "start": "budo browser.js:bundle.js --live -- -t babelify",
-    "startAzure": "budo browser.js:bundle.js --host 40.121.221.52 --live -- -t babelify",
+    "start": "budo browser.js:bundle.js --port 9292 --live -- -t babelify",
+    "startAzure": "budo browser.js:bundle.js --port 80 --host http://rightpaint.azurewebsites.net --live -- -t babelify",
     "build": "browserify browser.js -t babelify | uglifyjs -m -c warnings=false > bundle.js"
   },
   "keywords": [],
