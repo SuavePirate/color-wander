@@ -5,7 +5,6 @@ var createConfig = require('./config');
 var createRenderer = require('./lib/createRenderer');
 var createLoop = require('raf-loop');
 var contrast = require('wcag-contrast');
-var backgroundTimer;
 var canvas = document.querySelector('#canvas');
 var backgroundCanvas = document.querySelector("#backgroundCanvas");
 var background = new window.Image();
@@ -16,7 +15,7 @@ var loop = createLoop();
 var backgroundLoop = createLoop();
 var seedContainer = document.querySelector('.seed-container');
 var seedText = document.querySelector('.seed-text');
-
+var isRunningForeground = true;
 var isIOS = /(iPad|iPhone|iPod)/i.test(navigator.userAgent);
 
 if (isIOS) { // iOS bugs with full screen ...
@@ -41,10 +40,6 @@ backgroundCanvas.style.position = 'absolute';
 var randomize = (ev) => {
   if (ev) ev.preventDefault();
   reload(createConfig());
-  clearTimeout(backgroundTimer);
-  backgroundTimer = setTimeout(function(){
-    reloadBackground(createConfig());
-  }, 10000)
 };
 randomize();
 resize();
@@ -75,7 +70,6 @@ function reload (config) {
   canvas.height = opts.height * pixelRatio;
 
 
-  document.body.style.background = '';
   seedContainer.style.color = getBestContrast(opts.palette[0], opts.palette.slice(1));
   seedText.textContent = opts.seedName;
 
@@ -92,6 +86,7 @@ function reload (config) {
         stepCount++;
         if (!opts.endlessBrowser && stepCount > opts.steps) {
           loop.stop();
+          
         }
       });
       loop.start();
@@ -114,7 +109,7 @@ function reloadBackground (config) {
   backgroundCanvas.width = opts.width * pixelRatio;
   backgroundCanvas.height = opts.height * pixelRatio;
 
-  document.body.style.background = '';
+  document.body.style.background = opts.palette[0];
   seedContainer.style.color = getBestContrast(opts.palette[0], opts.palette.slice(1));
   seedText.textContent = opts.seedName;
 
@@ -131,6 +126,7 @@ function reloadBackground (config) {
         stepCount++;
         if (!opts.endlessBrowser && stepCount > opts.steps) {
           backgroundLoop.stop();
+          // reload(createConfig());
         }
       });
       backgroundLoop.start();
@@ -178,7 +174,18 @@ function letterbox (element, parent) {
   element.style.height = height + 'px';
 }
 
-  // run every 10 seconds
-  setTimeout(function(){  
-    randomize(null);
-  }, 10000)
+// every 15 seconds, switch between foreground and background
+setInterval(function(){
+  if(isRunningForeground){
+    console.log("switching from front to back");
+    loop.stop();
+    reloadBackground(createConfig());
+    isRunningForeground = false;
+  }
+  else{
+    console.log("switching from back to front");
+    backgroundLoop.stop();
+    reload(createConfig());
+    isRunningForeground = true;
+  }
+}, 15000);

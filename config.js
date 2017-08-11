@@ -13,13 +13,18 @@ module.exports = function (seed) {
   var random = createRandomRange(randomFunc);
 
   var maps = [
-    'sym6.jpg', 'sym3.jpg',
-    'scifi.jpg', 'nature1.jpg',
-    'map7.jpg', 'geo5.jpg', 'geo4.jpg',
-    'geo3.jpg', 'geo1.jpg', 'fractal2.jpg',
-    'fractal1.jpg', 'eye.jpg', 'city5.jpg',
-    'city2.jpg', 'church2.jpg', 'architecture.jpg',
-    'pat1.jpg'
+    'pattern-01.jpg',
+    'pattern-02.jpg',
+    'pattern-03.jpg',
+    'pattern-04.jpg',
+    'pattern-05.jpg',
+    'pattern-06.jpg',
+    'pattern-07.jpg',
+    'pattern-08.jpg',
+    'pattern-09.jpg',
+    'pattern-10.jpg',
+    'pattern-11.jpg',
+    'pattern-12.jpg',
   ].map(function (p) {
     return 'maps/' + p;
   });
@@ -37,9 +42,9 @@ module.exports = function (seed) {
     maxRadius: random(5, 100),
     lineStyle: random(1) > 0.5 ? 'round' : 'square',
     interval: random(0.001, 0.01),
-    count: 2000, // TODO: play with this number
-    steps: 2000, // TODO: play with this number
-    endlessBrowser: false, // Whether to endlessly step in browser
+    count: 5000, // TODO: play with this number
+    steps: 8000, // TODO: play with this number
+    endlessBrowser: true, // Whether to endlessly step in browser
 
     // background image that drives the algorithm
     debugLuma: false,
