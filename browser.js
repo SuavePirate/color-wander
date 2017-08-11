@@ -5,12 +5,15 @@ var createConfig = require('./config');
 var createRenderer = require('./lib/createRenderer');
 var createLoop = require('raf-loop');
 var contrast = require('wcag-contrast');
-
+var backgroundTimer;
 var canvas = document.querySelector('#canvas');
+var backgroundCanvas = document.querySelector("#backgroundCanvas");
 var background = new window.Image();
+var mainBackground = new window.Image();
 var context = canvas.getContext('2d');
-
+var backgroundContext = backgroundCanvas.getContext('2d');
 var loop = createLoop();
+var backgroundLoop = createLoop();
 var seedContainer = document.querySelector('.seed-container');
 var seedText = document.querySelector('.seed-text');
 
@@ -33,10 +36,15 @@ window.addEventListener('resize', resize);
 document.body.style.margin = '0';
 document.body.style.overflow = 'hidden';
 canvas.style.position = 'absolute';
+backgroundCanvas.style.position = 'absolute';
 
 var randomize = (ev) => {
   if (ev) ev.preventDefault();
   reload(createConfig());
+  clearTimeout(backgroundTimer);
+  backgroundTimer = setTimeout(function(){
+    reloadBackground(createConfig());
+  }, 10000)
 };
 randomize();
 resize();
@@ -50,7 +58,7 @@ const addEvents = (element) => {
   element.addEventListener('touchstart', randomize);
 };
 
-const targets = [ document.querySelector('#fill'), canvas ];
+const targets = [ document.querySelector('#fill'), canvas, backgroundCanvas ];
 targets.forEach(t => addEvents(t));
 
 function reload (config) {
@@ -66,7 +74,8 @@ function reload (config) {
   canvas.width = opts.width * pixelRatio;
   canvas.height = opts.height * pixelRatio;
 
-  document.body.style.background = opts.palette[0];
+
+  document.body.style.background = '';
   seedContainer.style.color = getBestContrast(opts.palette[0], opts.palette.slice(1));
   seedText.textContent = opts.seedName;
 
@@ -92,8 +101,48 @@ function reload (config) {
   background.src = config.backgroundSrc;
 }
 
+function reloadBackground (config) {
+  backgroundLoop.removeAllListeners('tick');
+  backgroundLoop.stop();
+
+  var opts = assign({
+    backgroundImage: background,
+    context: backgroundContext
+  }, config);
+
+  var pixelRatio = typeof opts.pixelRatio === 'number' ? opts.pixelRatio : 1;
+  backgroundCanvas.width = opts.width * pixelRatio;
+  backgroundCanvas.height = opts.height * pixelRatio;
+
+  document.body.style.background = '';
+  seedContainer.style.color = getBestContrast(opts.palette[0], opts.palette.slice(1));
+  seedText.textContent = opts.seedName;
+
+  mainBackground.onload = () => {
+    var renderer = createRenderer(opts);
+
+    if (opts.debugLuma) {
+      renderer.debugLuma();
+    } else {
+      renderer.clear();
+      var stepCount = 0;
+      backgroundLoop.on('tick', () => {
+        renderer.step(opts.interval);
+        stepCount++;
+        if (!opts.endlessBrowser && stepCount > opts.steps) {
+          backgroundLoop.stop();
+        }
+      });
+      backgroundLoop.start();
+    }
+  };
+
+  mainBackground.src = config.backgroundSrc;
+}
+
 function resize () {
   letterbox(canvas, [ window.innerWidth, window.innerHeight ]);
+  letterbox(backgroundCanvas, [window.innerWidth, window.innerHeight]);
 }
 
 function getBestContrast (background, colors) {
@@ -128,3 +177,8 @@ function letterbox (element, parent) {
   element.style.width = width + 'px';
   element.style.height = height + 'px';
 }
+
+  // run every 10 seconds
+  setTimeout(function(){  
+    randomize(null);
+  }, 10000)
