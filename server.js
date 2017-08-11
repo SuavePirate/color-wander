@@ -1,6 +1,5 @@
 var http = require('http')
 var https = require('https')
-var pem = require('pem')
 var createMiddleware = require('./middleware')
 var fs = require('fs')
 
@@ -26,19 +25,7 @@ module.exports = function createServer (entryMiddleware, opts, cb) {
       if (internalIp && altNames.indexOf(internalIp) === -1) {
         altNames.unshift(internalIp)
       }
-      // generate a self-signed cert
-      pem.createCertificate({
-        days: 1,
-        selfSigned: true,
-        commonName: internalIp,
-        altNames: altNames
-      }, function (err, keys) {
-        if (err) return cb(err)
-        create({
-          key: keys.serviceKey,
-          cert: keys.certificate
-        })
-      })
+    
     }
   } else {
     // no HTTPS, handle normally
