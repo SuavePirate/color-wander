@@ -1,69 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
   <title>Rightpaint</title>
   <link href='https://fonts.googleapis.com/css?family=Oxygen:300,700' rel='stylesheet' type='text/css'>
   <style type="text/css">
-  #canvas {
-    -webkit-mask-image: url("Rightpoint_black.svg");
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: 100px, 100px, center;
-    mask-size: 50%;
-    -webkit-mask-size: 60%;
-  }
-  canvas{
+    #canvas {
+      -webkit-mask-image: url("Rightpoint_black.svg");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: 100px, 100px, center;
+      mask-size: 50%;
+      -webkit-mask-size: 60%;
+    }
 
-    cursor: pointer;
-  }
-  header{
-    display: none;
-  }
-  .seed-container {
-    cursor: auto;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    color: white;
-    font-weight: 200;
-    text-transform: uppercase;
-    font-size: 12.25px;
-    font-family: 'Oxygen', sans-serif
-  }
-  .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none;           /* Non-prefixed version, currently
+    canvas {
+
+      cursor: pointer;
+    }
+
+    header {
+      display: none;
+    }
+
+    .seed-container {
+      cursor: auto;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      color: white;
+      font-weight: 200;
+      text-transform: uppercase;
+      font-size: 12.25px;
+      font-family: 'Oxygen', sans-serif
+    }
+
+    .noselect {
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+      -webkit-user-select: none;
+      /* Chrome/Safari/Opera */
+      -khtml-user-select: none;
+      /* Konqueror */
+      -moz-user-select: none;
+      /* Firefox */
+      -ms-user-select: none;
+      /* Internet Explorer/Edge */
+      user-select: none;
+      /* Non-prefixed version, currently
                                     not supported by any browser */
-  }
-  .seed-text {
-    font-weight: 700;
-  }
-  .howto {
-    font-size: 9px;
-  }
-  #fill {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+    }
+
+    .seed-text {
+      font-weight: 700;
+    }
+
+    .howto {
+      font-size: 9px;
+    }
+
+    #fill {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
+
 <body>
   <div id="fill"></div>
   <canvas id="backgroundCanvas" class="noselect"></canvas>
   <canvas id="canvas" class="noselect"></canvas>
+
+  <!-- state 2 -->
+<div id="state2">
+  <div class="inner">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      viewBox="0 0 876.1 149.6" style="enable-background:new 0 0 876.1 149.6;" xml:space="preserve">
+      <style type="text/css">
+
+        @keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        html, body {
+            height: 100%;
+        }
+        body {
+            margin: 0;
+        }
+
+        #state2 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100.5%;
+        }
+        #state2 .inner {
+          width: 60%;
+          margin: 0 auto;
+        }
+        #state2 svg {
+          -webkit-animation: fadein 10s;
+          -webkit-filter: drop-shadow( -5px -5px 5px #000 );
+          filter: drop-shadow( -5px -5px 5px #000 );
+        }
+        .st0 {
+          fill: none;
+          stroke: #000;
+          stroke-miterlimit: 10;
+          stroke-width: 2px;
+        }
+      </style>
+      <rect x="103.3" y="0.9" class="st0" width="20.2" height="103.3" />
+      <path class="st0" d="M496.8,65.3h-19.9v38.9h-20.2V0.9h40c21.3,0,34.1,14.7,34.1,32.2S518.1,65.3,496.8,65.3 M495.8,18.9h-18.9v28.3
+      h18.9c9.1,0,15-5.7,15-14.1S504.9,18.9,495.8,18.9" />
+      <path class="st0" d="M615.3,93.8c-7.3,7.3-16.1,11.3-27.9,11.3s-20.8-4.1-28-11.3c-10.5-10.4-10.1-23.4-10.1-41.2
+      s-0.3-30.8,10.2-41.2c7.3-7.3,16.3-11.3,28-11.3s20.6,4.1,27.9,11.3c10.5,10.5,10.3,23.4,10.3,41.2S625.7,83.3,615.3,93.8
+      M600.3,23.5c-3.3-3.6-8-5.7-12.9-5.5c-4.9-0.1-9.7,1.9-13.1,5.5c-3.9,4.4-4.9,9.1-4.9,29s1,24.7,4.9,29c3.4,3.6,8.1,5.7,13.1,5.5
+      c4.9,0.1,9.6-1.8,12.9-5.4c3.9-4.4,5.1-9.1,5.1-29S604.2,27.9,600.3,23.5" />
+      <rect x="649.2" y="0.9" class="st0" width="20.2" height="103.3" />
+      <polygon class="st0" points="756.9,0.9 756.9,64.2 716,0.9 698,0.9 698,104.2 718.1,104.2 718.1,40.8 759.1,104.2 777.1,104.2 
+      777.1,0.9 " />
+      <polygon class="st0" points="802,0.9 802,18.9 828.9,18.9 828.9,104.2 849.1,104.2 849.1,18.9 876.1,18.9 876.1,0.9 " />
+      <path class="st0" d="M54.9,104.2L34.7,63H20.2v41.2H0V0.9h40.5c21,0,33.5,14.4,33.5,31.6C74,47,65.2,56,55.2,59.7l23.1,44.6H54.9z
+      M39.2,18.9h-19v27.3h19c8.9,0,14.7-5.7,14.7-13.6S48.1,18.9,39.2,18.9" />
+      <rect x="103.3" y="0.9" class="st0" width="20.2" height="103.3" />
+      <polygon class="st0" points="312.3,0.9 312.3,43.1 277.3,43.1 277.3,0.9 257.1,0.9 257.1,104.2 277.3,104.2 277.3,61 312.3,61 
+      312.3,104.2 332.4,104.2 332.4,0.9 " />
+      <polygon class="st0" points="357.3,0.9 357.3,18.9 384.3,18.9 384.3,104.2 404.5,104.2 404.5,18.9 431.5,18.9 431.5,0.9 " />
+      <rect x="649.2" y="0.9" class="st0" width="20.2" height="103.3" />
+      <polygon class="st0" points="756.9,0.9 756.9,64.2 716,0.9 698,0.9 698,104.2 718.1,104.2 718.1,40.8 759.1,104.2 777.1,104.2 
+      777.1,0.9 " />
+      <polygon class="st0" points="802,0.9 802,18.9 828.9,18.9 828.9,104.2 849.1,104.2 849.1,18.9 876.1,18.9 876.1,0.9 " />
+      <rect y="130.2" class="st0" width="74.5" height="19.4" />
+      <path class="st0" d="M189.7,0c-11.6,0-20.6,4.1-27.9,11.3c-10.5,10.5-10.2,23.4-10.2,41.2s-0.3,30.8,10.2,41.2
+      c7.3,7.4,17.4,11.5,27.9,11.3c11,0,20.9-3.2,29.2-11.8c7.3-7.6,9.9-16.5,9.9-31.5V46.7h-34.5v16.8h14.4v3.9c0,5.4-1.3,10-4.6,13.8
+      s-8.3,5.8-14.4,5.8c-5.5,0-10-2-12.9-5.4c-3.9-4.4-4.9-9.3-4.9-29.2s1-24.7,4.9-29c3.3-3.7,8-5.7,13-5.6c9.4,0,15.1,4.4,17.8,12.5
+      h20.6C224.6,14.1,212.5,0,189.7,0" />
+    </svg>
+  </div>
+</div>
+
   <header class="seed-container">
-  <div>seed – <span class="seed-text">12380</span></div>
-  <div class="howto">tap to randomize</div>
+    <div>seed – <span class="seed-text">12380</span></div>
+    <div class="howto">tap to randomize</div>
   </header>
   <script src="bundle.js"></script>
 </body>
